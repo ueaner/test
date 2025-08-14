@@ -18,6 +18,10 @@ echo "------------------------------------------"
 type -a ipconfig
 echo "------------------------------------------"
 
+echo "网络IP地址:"
+scutil --nwi | grep 'Network interfaces' | awk '{print $NF}' | xargs ipconfig getifaddr
+echo "------------------------------------------"
+
 echo "ls /bin/:"
 ls /bin/
 echo "------------------------------------------"
