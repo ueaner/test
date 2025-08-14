@@ -45,7 +45,7 @@ jobs:
           sh --version
           echo "--- bash Info ---"
           type -a bash
-          bsah --version
+          bash --version
           echo "--- zsh Info ---"
           type -a zsh
           zsh --version
