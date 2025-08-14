@@ -1,0 +1,74 @@
+# 工作流的名称
+name: Fedora Environment and Shell Test
+
+# 触发工作流的事件
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+# 定义一个名为 'test' 的任务
+jobs:
+  test:
+    # 任务在 'ubuntu-latest' 虚拟机上运行
+    runs-on: ubuntu-latest
+
+    # 关键步骤：指定一个 Fedora Docker 容器，
+    # 任务中的所有 'run' 步骤都会在这个容器内执行。
+    container: fedora:latest
+
+    # 任务执行的步骤
+    steps:
+      # 第一步：检出你的代码仓库
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+
+      # 第二步：显示 Fedora 的环境信息
+      - name: Display Fedora Environment Details
+        run: |
+          echo "--- Fedora Environment ---"
+          echo "OS Version:"
+          cat /etc/os-release
+          echo "Kernel Info:"
+          uname -a
+          uname -m
+          echo "--- CPU Brand String ---"
+          cat /proc/cpuinfo | grep "model name" | head -n 1 | awk -F': ' '{print $2}'
+          echo "--- IP Info ---"
+          /sbin/ifconfig | grep 'inet ' | grep -v 127.0.0.1 | awk '{print $2}'
+          echo "Current User:"
+          whoami
+          echo "Default Shell:"
+          echo $SHELL
+
+          echo "--- sh Info ---"
+          type -a sh
+          sh --version
+          echo "--- bash Info ---"
+          type -a bash
+          bash --version
+          echo "--- zsh Info ---"
+          type -a zsh
+          zsh --version
+
+      # 第三步：执行一些 Shell 命令
+      - name: Run a few Shell Commands
+        run: |
+          echo "Listing files in current directory:"
+          ls -la
+          echo "Installing a tool with DNF (e.g., git):"
+          dnf install -y git
+          echo "git installed, checking version:"
+          git --version
+
+      # 第四步：执行一个脚本文件
+      - name: Run a custom shell script
+        run: |
+          echo "Executing test_script.sh from the repository..."
+          # 确保脚本文件有执行权限
+          chmod +x ./test_script.sh
+          # 运行脚本
+          ./test_script.sh
