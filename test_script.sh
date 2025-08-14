@@ -5,8 +5,24 @@
 echo "Hello from the custom shell script!"
 echo "The script is running in directory: $(pwd)"
 
-# 简单文件操作
-echo "Writing some text to a file..."
-echo "This is a test file created by the script." >script_output.txt
-echo "File created. Content is:"
-cat script_output.txt
+echo "------------------------------------------"
+
+# 其他操作
+
+echo "scutil --nwi"
+scutil --nwi
+echo "------------------------------------------"
+
+type -a ifconfig
+echo "------------------------------------------"
+type -a ipconfig
+echo "------------------------------------------"
+
+echo "ls /bin/:"
+ls /bin/
+echo "------------------------------------------"
+echo "ls /sbin/:"
+ls /sbin/
+echo "------------------------------------------"
+echo "ls /usr/sbin/:"
+ls /usr/sbin/
