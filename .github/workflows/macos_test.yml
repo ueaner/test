@@ -1,0 +1,59 @@
+# 工作流的名称
+name: macOS Environment and Shell Test
+
+# 触发工作流的事件，这里是 push 和 pull request
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+# 定义一个名为 'test' 的任务
+jobs:
+  test:
+    # 指定运行此任务的操作系统。'macos-latest' 会使用最新的 macOS 版本，
+    # 例如 macOS-14。你也可以指定具体的版本，如 'macos-13' 或 'macos-14'。
+    runs-on: macos-latest
+
+    # 任务执行的步骤
+    steps:
+      # 第一步：检出你的代码仓库
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # 第二步：显示 macOS 的环境信息
+      - name: Display macOS Environment Details
+        run: |
+          echo "--- macOS Version Info ---"
+          sw_vers
+          echo "--- Kernel Info ---"
+          uname -a
+          echo "--- Current User ---"
+          whoami
+          echo "--- Default Shell ---"
+          echo $SHELL
+          echo "--- CPU Brand String ---"
+          sysctl -n machdep.cpu.brand_string
+
+      # 第三步：执行一些 Shell 命令
+      - name: Run a few Shell Commands
+        run: |
+          echo "Listing files in current directory:"
+          ls -la
+          echo "Checking Homebrew (pre-installed):"
+          brew --version
+          echo "Installing a tool with Homebrew (e.g., jq):"
+          brew install jq
+          echo "jq installed, checking version:"
+          jq --version
+
+      # 第四步：执行一个脚本文件
+      - name: Run a custom shell script
+        run: |
+          echo "Executing test_script.sh from the repository..."
+          # 确保脚本文件有执行权限
+          chmod +x ./test_script.sh
+          # 运行脚本
+          ./test_script.sh
