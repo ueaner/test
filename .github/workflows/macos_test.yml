@@ -30,12 +30,25 @@ jobs:
           sw_vers
           echo "--- Kernel Info ---"
           uname -a
+          uname -m
+          echo "--- CPU Brand String ---"
+          sysctl -n machdep.cpu.brand_string
+          echo "--- IP Info ---"
+          /sbin/ifconfig | grep 'inet ' | grep -v 127.0.0.1 | awk '{print $2}'
           echo "--- Current User ---"
           whoami
           echo "--- Default Shell ---"
           echo $SHELL
-          echo "--- CPU Brand String ---"
-          sysctl -n machdep.cpu.brand_string
+
+          echo "--- sh Info ---"
+          type -a sh
+          sh --bersion
+          echo "--- bash Info ---"
+          type -a bash
+          bsah --bersion
+          echo "--- zsh Info ---"
+          type -a zsh
+          zsh --bersion
 
       # 第三步：执行一些 Shell 命令
       - name: Run a few Shell Commands
