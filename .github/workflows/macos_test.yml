@@ -42,13 +42,13 @@ jobs:
 
           echo "--- sh Info ---"
           type -a sh
-          sh --bersion
+          sh --version
           echo "--- bash Info ---"
           type -a bash
-          bsah --bersion
+          bsah --version
           echo "--- zsh Info ---"
           type -a zsh
-          zsh --bersion
+          zsh --version
 
       # 第三步：执行一些 Shell 命令
       - name: Run a few Shell Commands
