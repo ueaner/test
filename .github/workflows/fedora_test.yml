@@ -59,10 +59,10 @@ jobs:
         run: |
           echo "Listing files in current directory:"
           ls -la
-          echo "Installing a tool with DNF (e.g., git):"
-          dnf install -y git
-          echo "git installed, checking version:"
-          git --version
+          echo "Installing a tool with DNF (e.g., zsh):"
+          dnf install -y zsh
+          echo "zsh installed, checking version:"
+          zsh --version
 
       # 第四步：执行一个脚本文件
       - name: Run a custom shell script
