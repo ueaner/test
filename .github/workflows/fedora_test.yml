@@ -54,6 +54,10 @@ jobs:
           ! type zsh &>/dev/null && dnf install -y zsh || echo "zsh installed"
           type -a zsh
           zsh --version
+          echo "--- util-linux ---"
+          ! type chsh &>/dev/null && dnf install -y util-linux || echo "util-linux installed"
+          type -a chsh
+          chsh --version
 
       # 第三步：执行一些 Shell 命令
       - name: Run a few Shell Commands
