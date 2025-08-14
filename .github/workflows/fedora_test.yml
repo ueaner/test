@@ -51,8 +51,8 @@ jobs:
           type -a bash
           bash --version
           echo "--- zsh Info ---"
+          ! type zsh &>/dev/null && dnf install -y zsh || echo "zsh installed"
           type -a zsh
-          dnf install -y zsh
           zsh --version
 
       # 第三步：执行一些 Shell 命令
