@@ -1,5 +1,5 @@
 # 工作流的名称
-name: macOS Environment and Shell Test
+name: macOS Environment and Shell Test (ARM64)
 
 # 触发工作流的事件，这里是 push 和 pull request
 on:
@@ -12,7 +12,7 @@ on:
 
 # 定义一个名为 'test' 的任务
 jobs:
-  test:
+  test-macos-arm64:
     # 指定运行此任务的操作系统。'macos-latest' 会使用最新的 macOS 版本，
     # 例如 macOS-14。你也可以指定具体的版本，如 'macos-13' 或 'macos-14'。
     runs-on: macos-latest
@@ -40,6 +40,11 @@ jobs:
           echo "--- Default Shell ---"
           echo $SHELL
 
+      # 第三步：执行一些 Shell 命令
+      - name: Run a few Shell Commands
+        run: |
+          echo "Listing files in current directory:"
+          ls -la
           echo "--- sh Info ---"
           type -a sh
           sh --version
@@ -49,12 +54,6 @@ jobs:
           echo "--- zsh Info ---"
           type -a zsh
           zsh --version
-
-      # 第三步：执行一些 Shell 命令
-      - name: Run a few Shell Commands
-        run: |
-          echo "Listing files in current directory:"
-          ls -la
           echo "Checking Homebrew (pre-installed):"
           brew --version
           echo "Installing a tool with Homebrew (e.g., jq):"

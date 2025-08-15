@@ -12,7 +12,7 @@ on:
 
 # 定义一个名为 'test' 的任务
 jobs:
-  test:
+  test-fedora-x86_64:
     # 任务在 'ubuntu-latest' 虚拟机上运行
     runs-on: ubuntu-latest
 
@@ -38,12 +38,15 @@ jobs:
           echo "--- CPU Brand String ---"
           cat /proc/cpuinfo | grep "model name" | head -n 1 | awk -F': ' '{print $2}'
           echo "--- IP Info ---"
-          /sbin/ifconfig | grep 'inet ' | grep -v 127.0.0.1 | awk '{print $2}'
+          hostname -I | cut -d' ' -f1
           echo "Current User:"
           whoami
           echo "Default Shell:"
           echo $SHELL
 
+      # 第三步：执行一些 Shell 命令
+      - name: Run a few Shell Commands
+        run: |
           echo "--- sh Info ---"
           type -a sh
           sh --version
@@ -58,16 +61,6 @@ jobs:
           ! type chsh &>/dev/null && dnf install -y util-linux || echo "util-linux installed"
           type -a chsh
           chsh --version
-
-      # 第三步：执行一些 Shell 命令
-      - name: Run a few Shell Commands
-        run: |
-          echo "Listing files in current directory:"
-          ls -la
-          echo "Installing a tool with DNF (e.g., git):"
-          dnf install -y git
-          echo "zsh installed, checking version:"
-          git --version
 
       # 第四步：执行一个脚本文件
       - name: Run a custom shell script
