@@ -23,7 +23,7 @@ jobs:
 
       # 第二步：使用 run-on-arch-action 在 Fedora ARM64 容器中运行命令
       - name: Display Fedora ARM64 Environment and Shell Details
-        uses: uraimo/run-on-arch-action@v2
+        uses: uraimo/run-on-arch-action@v3
         with:
           # 指定架构为 ARM64
           arch: aarch64
@@ -50,7 +50,7 @@ jobs:
 
       # 第三步：执行一些 Shell 命令
       - name: Run a few Shell Commands
-        uses: uraimo/run-on-arch-action@v2
+        uses: uraimo/run-on-arch-action@v3
         with:
           # 指定架构为 ARM64
           arch: aarch64
@@ -75,10 +75,10 @@ jobs:
             type -a chsh
             chsh --version
 
-      # 第三步：执行一个脚本文件
+      # 第四步：执行一个脚本文件
       # ⚠️ 注意：这个步骤仍将使用 run-on-arch-action 在模拟环境中运行
       - name: Run a custom shell script
-        uses: uraimo/run-on-arch-action@v2
+        uses: uraimo/run-on-arch-action@v3
         with:
           arch: aarch64
           distro: fedora_latest
