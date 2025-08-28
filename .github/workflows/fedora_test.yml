@@ -35,6 +35,7 @@ jobs:
           echo "Kernel Info:"
           uname -a
           uname -m
+          rpm -qa | grep "^kernel"
           echo "--- CPU Brand String ---"
           cat /proc/cpuinfo | grep "model name" | head -n 1 | awk -F': ' '{print $2}'
           echo "--- IP Info ---"
